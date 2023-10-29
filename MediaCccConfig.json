@@ -1,0 +1,23 @@
+{
+	"name": "media.ccc.de",
+	"description": "A video platform which offers a wide variety of video and audio material distributed by the Chaos Computer Club",
+	"author": "Alex",
+	"authorUrl": "https://github.com/Alex-451",
+	
+	"sourceUrl": "https://yoursite.com/SomeConfig.json",
+	"repositoryUrl": "https://github.com/someuser/someproject",
+	"scriptUrl": "src/MediaCccScript.js",
+	"version": 1,
+	
+	"iconUrl": "./MediaCccLogo.png",
+	"id": "ccc221a2-4845-4ecf-9fa4-8b12958d2455",
+	
+	"scriptSignature": "<ommitted>",
+	"scriptPublicKey": "<ommitted>",
+	"packages": ["Http"],
+	
+	"allowEval": false,
+	"allowUrls": [
+		"everywhere"
+	]
+}
