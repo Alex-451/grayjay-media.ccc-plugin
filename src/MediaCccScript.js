@@ -13,9 +13,7 @@ source.enable = function (conf) {
 }
 
 source.getHome = function() {
-	return getVideosPager(URL_RECENT);
-    const videos = getCccContentData(); // The results (PlatformVideo)
-    return new getRecentPager(videos);
+	return getRecentPager(URL_RECENT);
 }
 
 //Internals
