@@ -40,3 +40,22 @@ class RecentPager extends VideoPager {
 		super(results);
 	}
 }
+
+//Internal methods
+function buildQuery(params) {
+	let query = "";
+	let first = true;
+	for (const [key, value] of Object.entries(params)) {
+		if (value) {
+			if (first) {
+				first = false;
+			} else {
+				query += "&";
+			}
+
+			query += `${key}=${value}`;
+		}
+	}
+
+	return (query && query.length > 0) ? `?${query}` : ""; 
+}
