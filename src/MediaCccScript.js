@@ -82,69 +82,10 @@ function parseVideoListingEntry(e) {
 			"name", 
 			"link to author profile",
 			"link to author avatar"),
-		uploadDate: dateToUnixTime(e.release_date),
-		duration: hhmmssToDuration(e.duration) ?? 0,
-		viewCount: fromHumanNumber(e.view_count) ?? 0,
+		uploadDate: e.release_date,
+		duration: e.duration ?? 0,
+		viewCount: e.view_count ?? 0,
 		url: e.url,
 		isLive: false
 	});
-}
-
-/**
- * Convert a Date to a unix time stamp
- * @param {String?} date Date to convert
- * @returns {number} Unix time stamp
- */
-function dateToUnixTime(date) {
-	if (!date) {
-		return 0;
-	}
-
-	return Math.round(Date.parse(date) / 1000);
-}
-
-/**
- * Format a duration string to a duration in seconds
- * @param {String?} duration Duration string format (hh:mm:ss)
- * @returns {number} Duration in seconds
- */
-function hhmmssToDuration(duration) {
-	if (!duration) {
-		return 0;
-	}
-
-	const parts = duration.split(':').map(Number);
-	if (parts.length == 3) {
-		return (parts[0] * 3600) + (parts[1] * 60) + parts[2];
-	} else if (parts.length == 2) {
-		return (parts[0] * 60) + parts[1];
-	} else if (parts.length == 1) {
-		return parts[0];
-	}
-
-	return 0;
-}
-
-/**
- * Convert a human number i.e. "20.1K" to a machine number i.e. 20100
- * @param {String?} numStr Human number i.e. "20.1K"
- * @returns {number?} Machine number
- */
-function fromHumanNumber(numStr) {
-	if (!numStr) {
-		return null;
-	}
-
-	const num = parseFloat(numStr.substring(0, numStr.length - 1));
-	const lastChar = numStr.charAt(numStr.length - 1).toLowerCase();
-	switch (lastChar) {
-		case 'b':
-			return Math.round(num * 1000000000);
-		case 'm':
-			return Math.round(num * 1000000);
-		case 'k':
-			return Math.round(num * 1000);
-	}
-
-	return Math.round(num);
 }
