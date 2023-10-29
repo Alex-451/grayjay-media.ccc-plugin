@@ -7,9 +7,8 @@ var config = {};
 
 //Source Methods
 source.enable = function (conf) {
-    /**
-     * @param conf: SourceV8PluginConfig (the SomeConfig.js)
-     */
+	config = conf ?? {};
+	log(config);
 }
 
 source.getHome = function(continuationToken) {
