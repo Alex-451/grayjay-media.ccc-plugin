@@ -27,7 +27,7 @@ function getRecentPager(url, params) {
 	const resp = http.GET(`${url}${buildQuery(params)}`, {});
 	const contentResp = JSON.parse(resp.body);
 
-	if (res.code == 200) {
+	if (resp.code == 200) {
 		return new RecentPager(contentResp.events);
 	}
 
