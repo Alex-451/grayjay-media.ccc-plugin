@@ -31,7 +31,7 @@ function getRecentPager(url, params) {
 		return new RecentPager(contentResp.events);
 	}
 
-	return new RecentPager([]);
+	return new VideoPager([]);
 }
 
 //Pagers
