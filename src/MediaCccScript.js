@@ -23,7 +23,7 @@ function getCccContentData() {
 	
 	return contentResp.events;
 }
-function getRecentPager(url) {
+function getRecentPager(url, params) {
 	const res = http.GET(`${url}${buildQuery(params)}`, {});
 	const contentResp = JSON.parse(resp.body);
 
