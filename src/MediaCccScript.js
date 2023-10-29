@@ -78,10 +78,11 @@ function parseVideoListingEntry(e) {
 		thumbnails: new Thumbnails([
 			new Thumbnail(e.poster_url, 1080)
 		]),
-		author: new PlatformAuthorLink("Id",
-			"name", 
-			"link to author profile",
-			"link to author avatar"),
+		author: new AuthorLink(
+			new PlatformID(PLATFORM, "SomeAuthorID", config.id), 
+			"SomeAuthorName", 
+			"https://platform.com/your/channel/url", 
+			"../url/to/thumbnail.png"),	
 		uploadDate: e.release_date,
 		duration: e.duration ?? 0,
 		viewCount: e.view_count ?? 0,
