@@ -1,4 +1,5 @@
-const URL_CONTENT = "https://api.media.ccc.de/public/"
+const URL_BASE = "https://api.media.ccc.de/public"
+const URL_RECENT = `${URL_BASE}/events/recent`
 
 const PLATFORM = "media.ccc.de";
 
@@ -11,7 +12,8 @@ source.enable = function (conf) {
 	log(config);
 }
 
-source.getHome = function(continuationToken) {
+source.getHome = function() {
+	return getVideosPager(URL_RECENT);
     const videos = getCccContentData(); // The results (PlatformVideo)
     return new getRecentPager(videos);
 }
@@ -23,29 +25,20 @@ function getCccContentData() {
 	
 	return contentResp.events;
 }
-function getRecentPager(query) {
-	const initialResults = claimSearch(query);
-	return new RecentPager(query, initialResults);
+function getRecentPager(url) {
+	const res = http.GET(`${url}${buildQuery(params)}`, {});
+	const contentResp = JSON.parse(resp.body);
+
+	if (res.code == 200) {
+		return new RecentPager(contentResp.events);
+	}
+
+	return new RecentPager([]);
 }
 
 //Pagers
 class RecentPager extends VideoPager {
-	constructor(query, results) {
-		super(results, results.length >= query.page_size, query);
+	constructor(results) {
+		super(results);
 	}
-}
-
-//Internal methods
-function claimSearch(query) {
-	const body = JSON.stringify({
-		method: "claim_search",
-		params: query
-	});
-	const resp = http.POST(URL_CLAIM_SEARCH, body, {
-		"Content-Type": "application/json" 
-	});
-	if(resp.code >= 300)
-		throw "Failed to search claims\n" + resp.body;
-	const result = JSON.parse(resp.body);
-	return result.result.items.map((x)=> lbryVideoToPlatformVideo(x));
 }
