@@ -13,7 +13,7 @@ source.enable = function (conf) {
 }
 
 source.getHome = function() {
-	return getRecentPager(URL_RECENT);
+	return getRecentPager(URL_RECENT, {});
 }
 
 //Internals
