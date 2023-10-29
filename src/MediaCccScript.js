@@ -79,7 +79,7 @@ function parseVideoListingEntry(e) {
 			new Thumbnail(e.poster_url, 1080)
 		]),
 		author: new PlatformAuthorLink(
-			"AuthorId",
+			e.guid,
 			"SomeAuthorName", 
 			"https://platform.com/your/channel/url", 
 			"../url/to/thumbnail.png"),	
