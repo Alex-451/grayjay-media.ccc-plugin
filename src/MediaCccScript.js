@@ -83,7 +83,7 @@ function parseVideoListingEntry(e) {
 			"https://platform.com/your/channel/url", 
 			"../url/to/thumbnail.png"),
 		uploadDate: e.release_date,
-		duration: e.duration ?? 0,
+		duration: Number(e.duration) ?? 0,
 		viewCount: e.view_count ?? 0,
 		url: e.url,
 		isLive: false
