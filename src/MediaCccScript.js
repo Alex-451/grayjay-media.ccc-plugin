@@ -24,12 +24,28 @@ function getCccContentData() {
 	return contentResp.events;
 }
 function getRecentPager(query) {
-	return new RecentPager(query);
+	const initialResults = claimSearch(query);
+	return new RecentPager(query, initialResults);
 }
 
 //Pagers
 class RecentPager extends VideoPager {
-	constructor(results) {
-		super(results);
+	constructor(query, results) {
+		super(results, results.length >= query.page_size, query);
 	}
+}
+
+//Internal methods
+function claimSearch(query) {
+	const body = JSON.stringify({
+		method: "claim_search",
+		params: query
+	});
+	const resp = http.POST(URL_CLAIM_SEARCH, body, {
+		"Content-Type": "application/json" 
+	});
+	if(resp.code >= 300)
+		throw "Failed to search claims\n" + resp.body;
+	const result = JSON.parse(resp.body);
+	return result.result.items.map((x)=> lbryVideoToPlatformVideo(x));
 }
