@@ -4,8 +4,8 @@
 	"author": "Alex",
 	"authorUrl": "https://github.com/Alex-451",
 	
-	"sourceUrl": "https://yoursite.com/SomeConfig.json",
-	"repositoryUrl": "https://github.com/someuser/someproject",
+	"sourceUrl": "https://raw.githubusercontent.com/Alex-451/grayjay-media.ccc-plugin/main/MediaCccConfig.json",
+	"repositoryUrl": "https://github.com/Alex-451/grayjay-media.ccc-plugin",
 	"scriptUrl": "src/MediaCccScript.js",
 	"version": 1,
 	
