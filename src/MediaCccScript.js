@@ -66,7 +66,6 @@ function parseVideoListingEntries(elements) {
 	return res;
 }
 
-
 /**
  * Parse a HTML video-listing-entry element to a JSON element
  * @returns {PlatformVideo} Platform video
@@ -78,11 +77,11 @@ function parseVideoListingEntry(e) {
 		thumbnails: new Thumbnails([
 			new Thumbnail(e.poster_url, 1080)
 		]),
-		author: new PlatformAuthorLink(
-			e.guid,
+		author: new AuthorLink(
+			new PlatformID("SomePlatformName", "SomeAuthorID", config.id), 
 			"SomeAuthorName", 
 			"https://platform.com/your/channel/url", 
-			"../url/to/thumbnail.png"),	
+			"../url/to/thumbnail.png"),
 		uploadDate: e.release_date,
 		duration: e.duration ?? 0,
 		viewCount: e.view_count ?? 0,
