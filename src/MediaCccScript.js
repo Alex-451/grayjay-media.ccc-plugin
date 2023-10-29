@@ -17,19 +17,14 @@ source.getHome = function() {
 }
 
 //Internals
-function getCccContentData() {
-	const resp = http.GET(URL_CONTENT+"events/recent/", {});
-	const contentResp = JSON.parse(resp.body);
-	
-	return contentResp.events;
-}
 function getRecentPager(url, params) {
 	const resp = http.GET(`${url}${buildQuery(params)}`, {});
-	const contentResp = JSON.parse(resp.body);
 
 	if (resp.code == 200) {
+		const contentResp = JSON.parse(resp.body);
+		const results = parseVideoListingEntries(contentResp.events);
 		let hasMore = false;
-		return new RecentPager(contentResp.events, hasMore, url, params);
+		return new RecentPager(results, hasMore, url, params);
 	}
 
 	return new VideoPager([]);
@@ -59,4 +54,77 @@ function buildQuery(params) {
 	}
 
 	return (query && query.length > 0) ? `?${query}` : ""; 
+}
+
+function parseVideoListingEntries(elements) {
+	const res = [];
+	for (let i = 0; i < elements.length; i++) {
+		const e = elements[i];
+		res.push(parseVideoListingEntry(e));
+	}
+
+	return res;
+}
+
+function parseVideoListingEntry(e) {
+	return new PlatformVideo({
+		id: new PlatformID(PLATFORM, e.guid, config.id),
+		name: e.title?.textContent ?? "",
+		thumbnails: new Thumbnails([
+			new Thumbnail(e.poster_url, 1080)
+		]),
+		author: new PlatformAuthorLink("Id",
+			"name", 
+			"link to author profile",
+			"link to author avatar"),
+		uploadDate: dateToUnixTime(e.release_date),
+		duration: hhmmssToDuration(e.duration) ?? 0,
+		viewCount: fromHumanNumber(e.view_count) ?? 0,
+		url: e.url,
+		isLive: false
+	});
+}
+
+function dateToUnixTime(date) {
+	if (!date) {
+		return 0;
+	}
+
+	return Math.round(Date.parse(date) / 1000);
+}
+
+function hhmmssToDuration(duration) {
+	if (!duration) {
+		return 0;
+	}
+
+	const parts = duration.split(':').map(Number);
+	if (parts.length == 3) {
+		return (parts[0] * 3600) + (parts[1] * 60) + parts[2];
+	} else if (parts.length == 2) {
+		return (parts[0] * 60) + parts[1];
+	} else if (parts.length == 1) {
+		return parts[0];
+	}
+
+	return 0;
+}
+
+function fromHumanNumber(numStr) {
+	if (!numStr) {
+		return null;
+	}
+
+	const num = parseFloat(numStr.substring(0, numStr.length - 1));
+	const lastChar = numStr.charAt(numStr.length - 1).toLowerCase();
+	switch (lastChar) {
+		case 'b':
+			return Math.round(num * 1000000000);
+		case 'm':
+			return Math.round(num * 1000000);
+		case 'k':
+			return Math.round(num * 1000);
+	}
+
+	return Math.round(num);
 }
