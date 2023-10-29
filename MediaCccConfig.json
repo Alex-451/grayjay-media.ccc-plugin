@@ -6,7 +6,7 @@
 	
 	"sourceUrl": "https://raw.githubusercontent.com/Alex-451/grayjay-media.ccc-plugin/main/MediaCccConfig.json",
 	"repositoryUrl": "https://github.com/Alex-451/grayjay-media.ccc-plugin",
-	"scriptUrl": "src/MediaCccScript.js",
+	"scriptUrl": "https://raw.githubusercontent.com/Alex-451/grayjay-media.ccc-plugin/main/src/MediaCccScript.js",
 	"version": 1,
 	
 	"iconUrl": "./MediaCccLogo.png",
