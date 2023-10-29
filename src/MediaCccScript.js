@@ -66,6 +66,11 @@ function parseVideoListingEntries(elements) {
 	return res;
 }
 
+
+/**
+ * Parse a HTML video-listing-entry element to a JSON element
+ * @returns {PlatformVideo} Platform video
+ */
 function parseVideoListingEntry(e) {
 	return new PlatformVideo({
 		id: new PlatformID(PLATFORM, e.guid, config.id),
@@ -85,6 +90,11 @@ function parseVideoListingEntry(e) {
 	});
 }
 
+/**
+ * Convert a Date to a unix time stamp
+ * @param {String?} date Date to convert
+ * @returns {number} Unix time stamp
+ */
 function dateToUnixTime(date) {
 	if (!date) {
 		return 0;
@@ -93,6 +103,11 @@ function dateToUnixTime(date) {
 	return Math.round(Date.parse(date) / 1000);
 }
 
+/**
+ * Format a duration string to a duration in seconds
+ * @param {String?} duration Duration string format (hh:mm:ss)
+ * @returns {number} Duration in seconds
+ */
 function hhmmssToDuration(duration) {
 	if (!duration) {
 		return 0;
@@ -110,6 +125,11 @@ function hhmmssToDuration(duration) {
 	return 0;
 }
 
+/**
+ * Convert a human number i.e. "20.1K" to a machine number i.e. 20100
+ * @param {String?} numStr Human number i.e. "20.1K"
+ * @returns {number?} Machine number
+ */
 function fromHumanNumber(numStr) {
 	if (!numStr) {
 		return null;
