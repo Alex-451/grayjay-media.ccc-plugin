@@ -9,7 +9,7 @@
 	"scriptUrl": "https://raw.githubusercontent.com/Alex-451/grayjay-media.ccc-plugin/main/src/MediaCccScript.js",
 	"version": 1,
 	
-	"iconUrl": "./MediaCccLogo.png",
+	"iconUrl": "https://raw.githubusercontent.com/Alex-451/grayjay-media.ccc-plugin/main/MediaCccLogo.png",
 	"id": "ccc221a2-4845-4ecf-9fa4-8b12958d2455",
 	
 	"scriptSignature": "<ommitted>",
