@@ -28,16 +28,17 @@ function getRecentPager(url, params) {
 	const contentResp = JSON.parse(resp.body);
 
 	if (resp.code == 200) {
-		return new RecentPager(contentResp.events);
+		let hasMore = false;
+		return new RecentPager(contentResp.events, hasMore, url, params);
 	}
 
-	//return new VideoPager([]);
+	return new VideoPager([]);
 }
 
 //Pagers
 class RecentPager extends VideoPager {
-	constructor(results) {
-		super(results);
+	constructor(results, hasMore, url, params) {
+		super(results, hasMore, { url, params });
 	}
 }
 
