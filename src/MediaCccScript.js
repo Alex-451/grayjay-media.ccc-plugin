@@ -93,7 +93,7 @@ function parseVideoListingEntries(elements) {
 function parseVideoListingEntry(e, conferenceInfo) {
 	return new PlatformVideo({
 		id: new PlatformID(PLATFORM, e.guid, config.id),
-		name: e.title?.textContent ?? "",
+		name: e.title ?? "",
 		thumbnails: new Thumbnails([
 			new Thumbnail(e.poster_url, 1080)
 		]),
