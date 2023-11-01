@@ -102,7 +102,7 @@ function parseVideoListingEntry(e, conferenceInfo) {
 			e.conference_title, 
 			`https://media.ccc.de/c/${conferenceInfo.acronym}`, 
 			conferenceInfo.logo_url),
-		uploadDate: Number(e.release_date),
+		uploadDate: dateToUnixTime(e.release_date),
 		duration: Number(e.duration) ?? 0,
 		viewCount: e.view_count ?? 0,
 		url: e.url,
@@ -110,6 +110,11 @@ function parseVideoListingEntry(e, conferenceInfo) {
 	});
 }
 
+/**
+ * Gets information about a conference
+ * @param {String} conferenceUrl Conference api url
+ * @returns {any} Response object
+ */
 function getConferenceInfo(conferenceUrl) {
 	const resp = http.GET(conferenceUrl, {});
 
@@ -117,6 +122,19 @@ function getConferenceInfo(conferenceUrl) {
 		const contentResp = JSON.parse(resp.body);
 		return contentResp;
 	}
+}
+
+/**
+ * Convert a Date to a unix time stamp
+ * @param {String?} date Date to convert
+ * @returns {Number} Unix time stamp
+ */
+function dateToUnixTime(date) {
+	if (!date) {
+		return 0;
+	}
+
+	return Math.round(Date.parse(date) / 1000);
 }
 
 
