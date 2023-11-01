@@ -79,7 +79,7 @@ function parseVideoListingEntries(elements) {
 	const res = [];
 	for (let i = 0; i < elements.length; i++) {
 		const e = elements[i];
-		const conferenceInfo = getConferenceInfo(contentResp.conference_url);
+		const conferenceInfo = getConferenceInfo(e.conference_url);
 		res.push(parseVideoListingEntry(e, conferenceInfo));
 	}
 
