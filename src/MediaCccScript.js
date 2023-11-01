@@ -80,7 +80,7 @@ function parseVideoListingEntries(elements) {
 	for (let i = 0; i < elements.length; i++) {
 		const e = elements[i];
 		const conferenceInfo = getConferenceInfo(e.conference_url);
-		res.push(parseVideoListingEntry(e, conferenceInfo));
+		res.push(parseVideoListingEntry(e, conferenceInfo.next()));
 	}
 
 	return res;
@@ -115,12 +115,12 @@ function parseVideoListingEntry(e, conferenceInfo) {
  * @param {String} conferenceUrl Conference api url
  * @returns {any} Response object
  */
-function getConferenceInfo(conferenceUrl) {
+function * getConferenceInfo(conferenceUrl) {
 	const resp = http.GET(conferenceUrl, {});
 
 	if (resp.code == 200) {
 		const contentResp = JSON.parse(resp.body);
-		return contentResp;
+		yield contentResp;
 	}
 }
 
