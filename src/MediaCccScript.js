@@ -25,12 +25,12 @@ source.getHome = function() {
  * @param {{[key: string]: any}} params Query parameters
  * @returns {RecentVideoPager?} Videos pager
  */
-async function getRecentVideosPager(url, params) {
+function getRecentVideosPager(url, params) {
 	const resp = http.GET(`${url}${buildQuery(params)}`, {});
 
 	if (resp.code == 200) {
 		const contentResp = JSON.parse(resp.body);
-		const results = await parseVideoListingEntries(contentResp.events);
+		const results = parseVideoListingEntries(contentResp.events)
 		let hasMore = false;
 		return new RecentVideoPager(results, hasMore, url, params);
 	}
