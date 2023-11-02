@@ -121,6 +121,7 @@ async function getConferenceInfo(conferenceUrl) {
 
 	if (resp.code == 200) {
 		const json = await response.json();
+		console.log(json);
 		return json;
 	}
 }
