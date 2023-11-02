@@ -11,8 +11,8 @@ source.enable = function (conf) {
 	log(config);
 }
 
-source.getHome = async function() {
-	return await getRecentVideosPager(URL_RECENT, {});
+source.getHome = function() {
+	return getRecentVideosPager(URL_RECENT, {});
 }
 
 //#endregion
