@@ -75,11 +75,11 @@ function buildQuery(params) {
  * Parse a HTML collection video-listing-entry element to a PlatformVideo element
  * @returns {PlatformVideo[]} Platform videos
  */
-function parseVideoListingEntries(elements) {
+async function parseVideoListingEntries(elements) {
 	const res = [];
 	for (let i = 0; i < elements.length; i++) {
 		const e = elements[i];
-		const conferenceInfo = getConferenceInfo(e.conference_url);
+		const conferenceInfo = await getConferenceInfo(e.conference_url);
 		res.push(parseVideoListingEntry(e, conferenceInfo));
 	}
 
@@ -115,12 +115,13 @@ function parseVideoListingEntry(e, conferenceInfo) {
  * @param {String} conferenceUrl Conference api url
  * @returns {any} Response object
  */
-function getConferenceInfo(conferenceUrl) {
-	const resp = http.GET(conferenceUrl, {});
+async function getConferenceInfo(conferenceUrl) {
+	//const resp = http.GET(conferenceUrl, {});
+	const resp = await fetch(conferenceUrl);
 
 	if (resp.code == 200) {
-		const contentResp = JSON.parse(resp.body);
-		return contentResp;
+		const json = await response.json();
+		return json;
 	}
 }
 
