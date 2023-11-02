@@ -11,8 +11,8 @@ source.enable = function (conf) {
 	log(config);
 }
 
-source.getHome = function() {
-	return getRecentVideosPager(URL_RECENT, {});
+source.getHome = async function() {
+	return await getRecentVideosPager(URL_RECENT, {});
 }
 
 //#endregion
@@ -25,12 +25,12 @@ source.getHome = function() {
  * @param {{[key: string]: any}} params Query parameters
  * @returns {RecentVideoPager?} Videos pager
  */
-function getRecentVideosPager(url, params) {
+async function getRecentVideosPager(url, params) {
 	const resp = http.GET(`${url}${buildQuery(params)}`, {});
 
 	if (resp.code == 200) {
 		const contentResp = JSON.parse(resp.body);
-		const results = parseVideoListingEntries(contentResp.events);
+		const results = await parseVideoListingEntries(contentResp.events);
 		let hasMore = false;
 		return new RecentVideoPager(results, hasMore, url, params);
 	}
